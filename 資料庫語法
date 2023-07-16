@@ -1,0 +1,123 @@
+資料庫語法
+
+myTravel 已宣告嵌入的物件名稱
+
+查詢所有欄位資料
+標準SQL語法： select * from travel
+Django語法： myTravel.objects.all()
+
+
+查詢所有欄位資料並依 id欄位 做遞增排序
+標準SQL語法： select * from travel order by id
+Django語法： myTravel.objects.all().order_by('id')
+
+
+查詢所有欄位資料並依 id欄位 做遞減排序
+標準SQL語法： select * from travel order by id desc 
+Django語法： myTravel.objects.all().order_by('-id')
+
+查詢所有欄位資料並依 id欄位和 price 欄位  做遞增排序
+標準SQL語法： select * from travel order by id ,price 
+Django語法： myTravel.objects.all().order_by('id','price')
+
+
+查詢標題是「金門風獅爺」 的資料  (有可能有此資料，有可以沒有這個資料時，django 用 filter)
+標準SQL語法： select * from travel where title = '金門風獅爺'
+Django語法： myTravel.objects.filter(title='金門風獅爺')
+
+
+查詢欄位 id 是12 的資料 ，只獲取單條資料時抓用，且這個資料一定要存在，才可以使用 get
+標準SQL語法： select * from travel where id = 12
+Django語法： myTravel.objects.get(id=12)
+
+
+查詢 price 價格 大於 5000元的資料
+標準SQL語法： select * from travel where price > 5000
+Django語法： myTravel.objects.filter(price__gt=5000)
+
+
+
+查詢 price 價格 大於 5000元的資料
+標準SQL語法： select * from travel where price > 5000
+Django語法： myTravel.objects.filter(price__gt=5000)
+
+
+查詢 price 價格 大於等於 5000元的資料
+標準SQL語法： select * from travel where price >= 5000
+Django語法： myTravel.objects.filter(price__gte=5000)
+
+
+查詢 price 價格 小於 5000元的資料
+標準SQL語法： select * from travel where price < 5000
+Django語法： myTravel.objects.filter(price__lt=5000)
+
+
+查詢 price 價格 小於等於 5000元的資料
+標準SQL語法： select * from travel where price <= 5000
+Django語法： myTravel.objects.filter(price__lte=5000)
+
+
+查詢 price 價格 大於1500 且 小於 4000元 的資料
+標準SQL語法： select * from travel where price > 1500 and price < 4000
+Django語法： myTravel.objects.filter(price__gt=1500,price__lt=4000)
+
+
+查詢 price 價格包含 1000  2000  3000 的資料
+標準SQL語法： select * from travel where price in (1000,2000,3000)
+Django語法： myTravel.objects.filter(price__in=[1000,2000,3000])
+
+
+關鍵字查詢
+
+查詢標題裡面有：「澎湖」 的資料就要顯示出來
+
+ 標準SQL語法： select * from travel where title like '%澎湖%'
+Django語法： myTravel.objects.filter(title__contains='澎湖')
+
+
+查詢標題開題是：「澎湖」 的資料就要顯示出來
+資料有如下：
+
+澎湖人很Good
+我是澎湖
+大家喜歡去澎湖玩
+
+只要出來的只有：澎湖人很Good
+
+ 標準SQL語法： select * from travel where title like '澎湖%'
+Django語法： myTravel.objects.filter(title__startswith='澎湖')
+
+
+查詢標題結尾是：「澎湖」 的資料就要顯示出來
+ 標準SQL語法： select * from travel where title like '%澎湖'
+Django語法： myTravel.objects.filter(title__endswith='澎湖')
+
+
+查詢資料，並只顯示五筆資料出來
+limit 這個語法只限mysql 相關資料庫使用
+mssql 不能使用，要用： top ==>  select top 5 * from travel
+
+標準SQL語法： select * from travel limit 5
+Django語法： myTravel.objects.all()[:5]
+
+
+
+
+查詢標題裡面有：「澎湖」 的資料顯示6筆出來
+
+ 標準SQL語法： select * from travel where title like '%澎湖%' limit 6
+Django語法： myTravel.objects.filter(title__contains='澎湖')[:6]
+
+
+查詢資料欄至是否為空值：=> null
+
+標準SQL語法： select * from travel where create_date is null
+Django語法： myTravel.objects.filter(create_date__isnull=True)
+
+
+
+
+
+
+
+
